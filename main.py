@@ -33,6 +33,9 @@ def listenInput():
                 return command
             else:
                 pass
+    except:
+        print('Wake word not detecting.')
+    return command
 
 def executeOutput():
     command = listenInput()
