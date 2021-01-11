@@ -10,56 +10,54 @@ engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
 
-name = 'YOUR NAME'
+name = 'Alexa'
+name = name.lower()
 
 def talk(text):
     engine.say(text)
     engine.runAndWait()
 
-
+    
 def listenInput():
     command = False
     try:
         with sr.Microphone() as source:
-            print('listening...')
+            print('Listening...')
             voice = listener.listen(source)
-            command = listener.recognize_google(voice)
-            command = command.lower()
-            if name in command:
-                command = command.replace(name, '')
-                print(command)
+            audio = listener.recognize_google(voice)
+            audio = audio.lower()
+            print(audio)
+            if name in audio:
+                command = audio.replace(name, '')
+                print('listeningInput= ' + command)
                 return command
-    except:
-
-        pass
-    return command
-
+            else:
+                pass
 
 def executeOutput():
     command = listenInput()
     if command == False:
         return
-    print(command)
-    if 'play' in command:
-        song = command.replace('play', '')
-        talk('playing ' + song)
-        pywhatkit.playonyt(song)
-    elif 'time' in command:
-        time = datetime.datetime.now().strftime('%I:%M %p')
-        talk('Current time is ' + time)
-    elif 'who the heck is' in command:
-        person = command.replace('who the heck is', '')
-        info = wikipedia.summary(person, 1)
-        print(info)
-        talk(info)
-    elif 'date' in command:
-        talk('sorry, I have a headache')
-    elif 'are you single' in command:
-        talk('I am in a relationship with wifi')
-    elif 'joke' in command:
-        talk(pyjokes.get_joke())
     else:
-        talk('Please say the command again.')
+        print('executeOutput= ' + command)
+        if 'play' in command:
+            song = command.replace('play', '')
+            talk('playing ' + song)
+            pywhatkit.playonyt(song)
+        elif 'time' in command:
+            time = datetime.datetime.now().strftime('%I:%M %p')
+            talk('Current time is ' + time)
+        elif 'who is' in command:
+            person = command.replace('who is', '')
+            info = wikipedia.summary(person, 1)
+            print(info)
+            talk(info)
+        elif 'who are you?' in command:
+            talk('I am your private assistant')
+        elif 'tell me something fun' in command:
+            talk(pyjokes.get_joke())
+        else:
+            talk('Please say the command again.')
 
 
 while True:
