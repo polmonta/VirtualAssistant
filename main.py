@@ -55,12 +55,18 @@ def executeOutput():
             info = wikipedia.summary(person, 1)
             print(info)
             talk(info)
-        elif 'who are you?' in command:
+        elif 'who are you' in command:
             talk('I am your private assistant')
         elif 'tell me something fun' in command:
             talk(pyjokes.get_joke())
         else:
-            talk('Please say the command again.')
+            if 'what is' in command:
+                googleSearch = command.replace('what is', '')
+                talk('This is what I have found on Google for ' + googleSearch)
+                pywhatkit.search(googleSearch)
+            else:
+                pywhatkit.search(command)
+                talk('This is what I have found on Google for ' + command)
 
 
 while True:
