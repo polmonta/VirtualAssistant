@@ -1,0 +1,14 @@
+
+# Required packages for main.py
+pip
+SpeechRecognition==3.8.1
+pyttsx3==2.90
+datetime==4.3
+wikipedia==1.4.0
+pyjokes==0.6.0
+word2number==1.1
+
+
+# Required packages for weather.py
+requests==2.25.1
+pycountry==20.7.3
